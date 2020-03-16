@@ -1,0 +1,44 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+   <div class="row" >
+
+       <div class="col-3 p-5" >
+
+           <div style="display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; border-style: solid; border-color: coral;" >
+           <img src="/svg/insta.jpg" alt="" style="width: auto; height: 100%;" class="img-responsible" />
+           </div> 
+        </div>
+
+           <div class="col-9 p-5">
+               <div class="d-flex justify-content-between align-items-baseline" >
+               <h1>{{ $user->username }}</h1>
+               <a href="/p/create">Add New Post</a>
+               </div>
+
+               <a href="/profile/{{ $user->id }}/edit">Edit profile</a>
+
+               <div class="d-flex">
+                   <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> posts</div>
+                   <div class="pr-5"><strong>2.6m</strong> followers</div>
+                   <div class="pr-5"><strong>0</strong> following</div>
+               </div>
+               <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
+               <div>{{ $user->profile->description }}</div>
+               <div><a href="www.instablog9ja.com">{{ $user->profile->url }}</a></div>
+            </div>
+   </div>
+
+   <div class="row pt-5">
+   @foreach($user->posts as $post)
+   <div class="col-4 pb-4">
+   <a href="/p/{{ $post->id }}">
+   <img src="/storage/{{ $post->image }}" class="w-100" >
+   </a>
+   </div>
+
+   @endforeach
+   </div>
+</div>
+@endsection
