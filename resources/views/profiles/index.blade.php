@@ -6,23 +6,33 @@
 
        <div class="col-3 p-5" >
 
-           <div style="display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; border-style: solid; border-color: coral;" >
-           <img src="/svg/insta.jpg" alt="" style="width: auto; height: 100%;" class="img-responsible" />
-           </div> 
+           <!-- <div style="display: inline-block; position: relative; width: 200px; height: 200px; overflow: hidden; border-radius: 50%; border-style: solid; border-color: coral;" > -->
+           <img src="{{ $user->profile->profileImage()}}" alt="" class="rounded-circle w-100" />
+           <!-- </div>  -->
         </div>
 
            <div class="col-9 p-5">
                <div class="d-flex justify-content-between align-items-baseline" >
-               <h1>{{ $user->username }}</h1>
+             <div class="d-flex align-items-center pb-3">
+             <div class='h4'>{{ $user->username }}</div>
+              
+              <follow-button user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-button>
+         
+             </div>
+
+               @can('update', $user->profile)
                <a href="/p/create">Add New Post</a>
+               @endcan
                </div>
 
-               <a href="/profile/{{ $user->id }}/edit">Edit profile</a>
+              @can('update', $user->profile)
+              <a href="/profile/{{ $user->id }}/edit">Edit profile</a>
+              @endcan
 
                <div class="d-flex">
-                   <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> posts</div>
-                   <div class="pr-5"><strong>2.6m</strong> followers</div>
-                   <div class="pr-5"><strong>0</strong> following</div>
+                   <div class="pr-5"><strong>{{ $postCount }}</strong> posts</div>
+                   <div class="pr-5"><strong>{{ $followersCount }}</strong> followers</div>
+                   <div class="pr-5"><strong>{{ $followingCount }}</strong> following</div>
                </div>
                <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
                <div>{{ $user->profile->description }}</div>
